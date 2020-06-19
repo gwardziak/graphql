@@ -6,19 +6,19 @@ export type ProductOptions = {
   price: number;
 };
 
-@Entity()
 @ObjectType()
+@Entity()
 export class Product {
-  @PrimaryGeneratedColumn()
   @Field((type) => ID)
+  @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
   @Field()
+  @Column()
   name!: string;
 
-  @Column()
   @Field((type) => Float)
+  @Column()
   price!: number;
 
   constructor(options: ProductOptions) {
