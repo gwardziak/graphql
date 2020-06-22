@@ -1,5 +1,6 @@
 import { Field, Float, ID, ObjectType } from "type-graphql";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ProductList } from "./ProductList";
 
 interface IProduct {
   name: string;
@@ -20,6 +21,9 @@ export class Product implements IProduct {
   @Field((type) => Float)
   @Column()
   price!: number;
+
+  @ManyToOne((type) => ProductList, (list) => list.products)
+  list!: ProductList;
 
   constructor(options: IProduct) {
     if (options) {
