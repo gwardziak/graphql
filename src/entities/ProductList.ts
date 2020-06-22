@@ -18,10 +18,14 @@ export class ProductList implements IProductList {
   @Column()
   name!: string;
 
-  //
+  /*
   @Field((type) => [Product])
-  @OneToMany((type) => Product, (product) => product.list)
-  @Column()
+  @Column({ array: true })
+  products!: Product[];
+  */
+
+  @OneToMany((type) => Product, (products) => products.list)
+  @Field((type) => [Product])
   products!: Product[];
 
   constructor(options: IProductList) {
