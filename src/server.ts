@@ -12,6 +12,8 @@ const main = async () => {
 
   const schema = await buildSchema({
     resolvers: [ProductResolver],
+    //validation - true when validating anything
+    validate: false,
   });
 
   const app = Express();
