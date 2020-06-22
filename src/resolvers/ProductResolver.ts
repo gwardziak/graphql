@@ -11,8 +11,8 @@ export class ProductResolver {
   }
 
   @Query(() => Product, { nullable: true })
-  async product(@Arg("name") name: string): Promise<Product | null> {
-    const product = await getRepository(Product).findOne({ where: { name } });
+  async product(@Arg("id") id: number): Promise<Product | null> {
+    const product = await getRepository(Product).findOne({ where: { id } });
 
     if (!product) return null;
 
