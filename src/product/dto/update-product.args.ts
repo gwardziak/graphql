@@ -1,19 +1,5 @@
 import { ArgsType, Field, Float, ID } from "type-graphql";
-
-interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-}
-
-@ArgsType()
-export class CreateProductArgs implements Omit<IProduct, "id"> {
-  @Field()
-  public readonly name!: string;
-
-  @Field((type) => Float)
-  public readonly price!: number;
-}
+import { IProduct } from "../ProductType";
 
 @ArgsType()
 export class UpdateProductArgs implements Partial<IProduct> {

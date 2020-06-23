@@ -1,10 +1,9 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./Product";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 interface IProductList {
   name: string;
-  products: Product[];
+  //products: Product[];
 }
 
 @ObjectType()
@@ -23,11 +22,11 @@ export class ProductList implements IProductList {
   @Column({ array: true })
   products!: Product[];
   */
-
+  /*
   @OneToMany((type) => Product, (products) => products.list)
   @Field((type) => [Product])
   products!: Product[];
-
+*/
   constructor(options: IProductList) {
     if (options) {
       Object.assign(this, options);

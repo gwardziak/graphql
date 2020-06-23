@@ -1,7 +1,7 @@
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import { getRepository } from "typeorm";
-import { CreateProductListArgs } from "./../argTypes/ProductListArgs";
-import { ProductList } from "./../entities/ProductList";
+import { ProductList } from "../db/entities/ProductList";
+import { CreateProductListArgs } from "./ProductListArgs";
 
 @Resolver()
 export class ProductListResolver {

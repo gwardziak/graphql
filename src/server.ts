@@ -5,14 +5,13 @@ import expressPlayground from "graphql-playground-middleware-express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { ProductListResolver } from "./resolvers/ProductListResolver";
-import { ProductResolver } from "./resolvers/ProductResolver";
+import { ProductResolver } from "./product/Product.resolver";
 
 const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [ProductResolver, ProductListResolver],
+    resolvers: [ProductResolver],
     //validation - true when validating anything
     validate: false,
   });

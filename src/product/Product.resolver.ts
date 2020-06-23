@@ -1,18 +1,22 @@
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import { getRepository } from "typeorm";
-import { CreateProductArgs, UpdateProductArgs } from "../argTypes/ProductArgs";
-import { Product } from "../entities/Product";
+import { ProductModel } from "../db/entities/Product";
+import { CreateProductArgs } from "./dto/create-product.args";
+import { UpdateProductArgs } from "./dto/update-product.args";
+import { Product } from "./Product.service";
 
 @Resolver()
 export class ProductResolver {
   @Query(() => [Product])
   async products(): Promise<Product[]> {
-    return await getRepository(Product).find();
+    return await getRepository(ProductModel).find();
   }
 
   @Query(() => Product, { nullable: true })
   async product(@Arg("id") id: number): Promise<Product | null> {
-    const product = await getRepository(Product).findOne({ where: { id } });
+    const product = await getRepository(ProductModel).findOne({
+      where: { id },
+    });
 
     if (!product) return null;
 
@@ -21,9 +25,9 @@ export class ProductResolver {
 
   @Mutation(() => Product)
   async createProduct(@Args() product: CreateProductArgs) {
-    const newProduct = new Product(product);
+    const newProduct = new ProductModel(product);
     console.log("Creating product");
-    return await getRepository(Product).save(newProduct);
+    return await getRepository(ProductModel).save(newProduct);
   }
 
   @Mutation(() => Product)
@@ -33,14 +37,14 @@ export class ProductResolver {
     const product = await getRepository(Product).findOne({ where: { id } });
     if (!product) throw new Error("Product not found!");
     Object.assign(product, newValues);
-    return await getRepository(Product).save(product);
+    return await getRepository(ProductModel).save(product);
   }
 
   @Mutation(() => Boolean)
   async deleteProduct(@Arg("id") id: number) {
     const product = await getRepository(Product).findOne({ where: { id } });
     if (!product) throw new Error("Product not found!");
-    await getRepository(Product).delete(product);
+    await getRepository(ProductModel).delete(product);
 
     return true;
   }
