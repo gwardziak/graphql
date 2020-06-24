@@ -1,5 +1,7 @@
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { ProductList } from "../db/entities/ProductList";
+import { ProductObjectType } from "./../product/dto/ProductObjectType";
+import { CreateProductListArgs } from "./dto/CreateProductListArgs";
 import { ProductListObjectType } from "./dto/ProductListObjectType";
 import { ProductListService } from "./ProductListService";
 
@@ -18,17 +20,31 @@ export class ProductListResolver {
   async productList(@Arg("id") id: number): Promise<ProductList | null> {
     return await this.productListService.getOne(id);
   }
-  /*
-  @Mutation(() => ProductList)
-  async createProductList(
-    @Args()
-    { name, products }: CreateProductListArgs
-  ): Promise<ProductList> {
-    console.log(name, products);
 
-    return new ProductList({ name: "dupa", products: [] });
+  @Mutation(() => ProductListObjectType)
+  async createProductList(
+    @Arg("data") product: ProductObjectType,
+    createArgs: CreateProductListArgs
+  ): Promise<ProductList> {
+    console.log(product);
+    return await this.productListService.create(createArgs);
   }
 
+  /*
+
+
+ @Mutation(() => ProductListObjectType)
+  async createProductList(
+    @Args()
+    createArgs: CreateProductListArgs
+  ): Promise<ProductList> {
+    return await this.productListService.create(createArgs);
+  }
+
+
+*/
+
+  /*
   @Mutation(() => ProductList)
   async createProductList(
     @Arg("name") name: string,

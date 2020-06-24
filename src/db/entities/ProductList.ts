@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { IProductListModel } from "../../models/ProductListModel";
+import { Product } from "./Product";
 
 type ProductListOptions = Omit<IProductListModel, "id">;
 
@@ -10,6 +11,10 @@ export class ProductList implements IProductListModel {
 
   @Column()
   name!: string;
+
+  @OneToMany((type) => Product, (products) => products.list)
+  products!: Product[];
+
   /*
   @Column()
   products!: Product[];
