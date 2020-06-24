@@ -3,9 +3,12 @@ import Express from "express";
 import graphqlHTTP from "express-graphql";
 import expressPlayground from "graphql-playground-middleware-express";
 import "reflect-metadata";
-import { buildSchema } from "type-graphql";
+import { buildSchema, useContainer } from "type-graphql";
+import Container from "typedi";
 import { createConnection } from "typeorm";
 import { ProductResolver } from "./product/ProductResolver";
+
+useContainer(Container);
 
 const main = async () => {
   await createConnection();

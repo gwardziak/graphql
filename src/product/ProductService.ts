@@ -8,4 +8,14 @@ export class ProductService {
   async getAll() {
     return await getRepository(Product).find();
   }
+
+  async getOne(id: number) {
+    const product = await getRepository(Product).findOne({
+      where: { id },
+    });
+
+    if (!product) return null;
+
+    return product;
+  }
 }

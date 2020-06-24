@@ -1,26 +1,25 @@
-import { Query, Resolver } from "type-graphql";
-import { getRepository } from "typeorm";
+import { Arg, Query, Resolver } from "type-graphql";
 import { Product } from "../db/entities/Product";
 import { ProductObjectType } from "./dto/ProductObjectType";
+import { ProductService } from "./ProductService";
 
 @Resolver()
 export class ProductResolver {
+  constructor(
+    // constructor injection of service
+    private readonly productService: ProductService
+  ) {}
+
   @Query(() => [ProductObjectType])
-  async products(): Promise<Product[]> {
-    return await getRepository(Product).find();
+  async products() {
+    return await this.productService.getAll();
   }
-  /*
+
   @Query(() => ProductObjectType, { nullable: true })
   async product(@Arg("id") id: number): Promise<Product | null> {
-    const product = await getRepository(Product).findOne({
-      where: { id },
-    });
-
-    if (!product) return null;
-
-    return product;
+    return await this.productService.getOne(id);
   }
-
+  /*
   @Mutation(() => ProductObjectType)
   async createProduct(@Args() product: CreateProductArgs) {
     const newProduct = new Product(product);
