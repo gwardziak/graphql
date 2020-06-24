@@ -1,27 +1,24 @@
-/*
-import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
-import { getRepository } from "typeorm";
+import { Arg, Query, Resolver } from "type-graphql";
 import { ProductList } from "../db/entities/ProductList";
-import { CreateProductListArgs } from "./ProductListArgs";
+import { ProductListObjectType } from "./dto/ProductListObjectType";
+import { ProductListService } from "./ProductListService";
 
 @Resolver()
 export class ProductListResolver {
-  @Query(() => [ProductList])
-  async productsLists(): Promise<ProductList[]> {
-    return await getRepository(ProductList).find();
+  private constructor(
+    private readonly productListService: ProductListService
+  ) {}
+
+  @Query(() => [ProductListObjectType])
+  async productLists(): Promise<ProductList[]> {
+    return await this.productListService.getAll();
   }
 
-  @Query(() => ProductList, { nullable: true })
-  async productsList(@Arg("id") id: number): Promise<ProductList | null> {
-    const productList = await getRepository(ProductList).findOne({
-      where: { id },
-    });
-
-    if (!productList) return null;
-
-    return productList;
+  @Query(() => ProductListObjectType, { nullable: true })
+  async productList(@Arg("id") id: number): Promise<ProductList | null> {
+    return await this.productListService.getOne(id);
   }
-
+  /*
   @Mutation(() => ProductList)
   async createProductList(
     @Args()
@@ -32,7 +29,6 @@ export class ProductListResolver {
     return new ProductList({ name: "dupa", products: [] });
   }
 
-  /*
   @Mutation(() => ProductList)
   async createProductList(
     @Arg("name") name: string,
@@ -44,7 +40,6 @@ export class ProductListResolver {
     return new ProductList({ name, products });
   }
 
-  /*
   @Mutation(() => ProductList)
   async createProductList(@Args() productList: CreateProductListArgs) {
     console.log(productList);
@@ -53,7 +48,6 @@ export class ProductListResolver {
     //return await getRepository(ProductList).save(newProductList);
   }
 
-  /*
   @Mutation(() => Product)
   async editProduct(@Args() { id, ...newValues }: UpdateProductArgs) {
     console.log("Editing product...");
@@ -72,6 +66,5 @@ export class ProductListResolver {
 
     return true;
   }
-
+  */
 }
-*/

@@ -6,11 +6,11 @@ import { UpdateProductArgs } from "./dto/UpdateProductArgs";
 
 @Service()
 export class ProductService {
-  async getAll() {
+  async getAll(): Promise<Product[]> {
     return await getRepository(Product).find();
   }
 
-  async getOne(id: number) {
+  async getOne(id: number): Promise<Product | null> {
     const product = await getRepository(Product).findOne({
       where: { id },
     });

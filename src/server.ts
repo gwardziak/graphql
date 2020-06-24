@@ -7,6 +7,7 @@ import { buildSchema, useContainer } from "type-graphql";
 import Container from "typedi";
 import { createConnection } from "typeorm";
 import { ProductResolver } from "./product/ProductResolver";
+import { ProductListResolver } from "./productList/ProductListResolver";
 
 useContainer(Container);
 
@@ -14,7 +15,7 @@ const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [ProductResolver],
+    resolvers: [ProductResolver, ProductListResolver],
     //validation - true when validating anything
     validate: false,
   });
