@@ -5,7 +5,7 @@ import expressPlayground from "graphql-playground-middleware-express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { ProductResolver } from "./product/Product.resolver";
+import { ProductResolver } from "./product/ProductResolver";
 
 const main = async () => {
   await createConnection();

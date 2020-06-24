@@ -1,20 +1,18 @@
-import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
+import { Query, Resolver } from "type-graphql";
 import { getRepository } from "typeorm";
-import { ProductModel } from "../db/entities/Product";
-import { CreateProductArgs } from "./dto/create-product.args";
-import { UpdateProductArgs } from "./dto/update-product.args";
-import { Product } from "./Product.service";
+import { Product } from "../db/entities/Product";
+import { ProductObjectType } from "./dto/ProductObjectType";
 
 @Resolver()
 export class ProductResolver {
-  @Query(() => [Product])
+  @Query(() => [ProductObjectType])
   async products(): Promise<Product[]> {
-    return await getRepository(ProductModel).find();
+    return await getRepository(Product).find();
   }
-
-  @Query(() => Product, { nullable: true })
+  /*
+  @Query(() => ProductObjectType, { nullable: true })
   async product(@Arg("id") id: number): Promise<Product | null> {
-    const product = await getRepository(ProductModel).findOne({
+    const product = await getRepository(Product).findOne({
       where: { id },
     });
 
@@ -23,29 +21,30 @@ export class ProductResolver {
     return product;
   }
 
-  @Mutation(() => Product)
+  @Mutation(() => ProductObjectType)
   async createProduct(@Args() product: CreateProductArgs) {
-    const newProduct = new ProductModel(product);
+    const newProduct = new Product(product);
     console.log("Creating product");
-    return await getRepository(ProductModel).save(newProduct);
+    return await getRepository(Product).save(newProduct);
   }
 
-  @Mutation(() => Product)
+  @Mutation(() => ProductObjectType)
   async editProduct(@Args() { id, ...newValues }: UpdateProductArgs) {
     console.log("Editing product...");
 
     const product = await getRepository(Product).findOne({ where: { id } });
     if (!product) throw new Error("Product not found!");
     Object.assign(product, newValues);
-    return await getRepository(ProductModel).save(product);
+    return await getRepository(Product).save(product);
   }
 
   @Mutation(() => Boolean)
   async deleteProduct(@Arg("id") id: number) {
     const product = await getRepository(Product).findOne({ where: { id } });
     if (!product) throw new Error("Product not found!");
-    await getRepository(ProductModel).delete(product);
+    await getRepository(Product).delete(product);
 
     return true;
   }
+  */
 }

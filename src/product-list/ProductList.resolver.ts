@@ -1,3 +1,4 @@
+/*
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import { getRepository } from "typeorm";
 import { ProductList } from "../db/entities/ProductList";
@@ -71,5 +72,6 @@ export class ProductListResolver {
 
     return true;
   }
-  */
+
 }
+*/

@@ -1,3 +1,4 @@
+/*
 import { ArgsType, Field } from "type-graphql";
 import { Product } from "../entities/Product";
 

@@ -1,8 +1,8 @@
 import { ArgsType, Field, Float, ID } from "type-graphql";
-import { IProduct } from "../ProductType";
+import { IProductModel } from "../../models/ProductModel";
 
 @ArgsType()
-export class UpdateProductArgs implements Partial<IProduct> {
+export class UpdateProductArgs implements Partial<IProductModel> {
   @Field((type) => ID)
   public readonly id!: number;
 

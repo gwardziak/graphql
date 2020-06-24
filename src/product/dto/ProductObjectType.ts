@@ -1,8 +1,8 @@
 import { Field, Float, ID, ObjectType } from "type-graphql";
-import { IProduct } from "./ProductType";
+import { IProductModel } from "../../models/ProductModel";
 
-@ObjectType()
-export class Product implements IProduct {
+@ObjectType("Product")
+export class ProductObjectType implements IProductModel {
   @Field((type) => ID)
   id!: number;
 

@@ -1,12 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IProductModel } from "../../models/ProductModel";
 
-interface IProductModel {
-  name: string;
-  price: number;
-}
+type ProductOptions = Omit<IProductModel, "id">;
 
 @Entity()
-export class ProductModel implements IProductModel {
+export class Product implements ProductOptions {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -20,7 +18,7 @@ export class ProductModel implements IProductModel {
   @ManyToOne((type) => ProductList, (list) => list.products)
   list!: ProductList;
 */
-  constructor(options: IProductModel) {
+  constructor(options: ProductOptions) {
     if (options) {
       Object.assign(this, options);
     }
