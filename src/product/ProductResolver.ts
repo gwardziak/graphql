@@ -1,14 +1,13 @@
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import { Product } from "../db/entities/Product";
+import { CreateProductArgs } from "./dto/CreateProductArgs";
 import { ProductObjectType } from "./dto/ProductObjectType";
+import { UpdateProductArgs } from "./dto/UpdateProductArgs";
 import { ProductService } from "./ProductService";
 
 @Resolver()
 export class ProductResolver {
-  constructor(
-    // constructor injection of service
-    private readonly productService: ProductService
-  ) {}
+  private constructor(private readonly productService: ProductService) {}
 
   @Query(() => [ProductObjectType])
   async products() {
@@ -19,31 +18,19 @@ export class ProductResolver {
   async product(@Arg("id") id: number): Promise<Product | null> {
     return await this.productService.getOne(id);
   }
-  /*
+
   @Mutation(() => ProductObjectType)
-  async createProduct(@Args() product: CreateProductArgs) {
-    const newProduct = new Product(product);
-    console.log("Creating product");
-    return await getRepository(Product).save(newProduct);
+  async createProduct(@Args() createArgs: CreateProductArgs) {
+    return await this.productService.create(createArgs);
   }
 
   @Mutation(() => ProductObjectType)
-  async editProduct(@Args() { id, ...newValues }: UpdateProductArgs) {
-    console.log("Editing product...");
-
-    const product = await getRepository(Product).findOne({ where: { id } });
-    if (!product) throw new Error("Product not found!");
-    Object.assign(product, newValues);
-    return await getRepository(Product).save(product);
+  async editProduct(@Args() updateArgs: UpdateProductArgs) {
+    return await this.productService.edit(updateArgs);
   }
 
   @Mutation(() => Boolean)
   async deleteProduct(@Arg("id") id: number) {
-    const product = await getRepository(Product).findOne({ where: { id } });
-    if (!product) throw new Error("Product not found!");
-    await getRepository(Product).delete(product);
-
-    return true;
+    return await this.productService.delete(id);
   }
-  */
 }
