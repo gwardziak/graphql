@@ -2,7 +2,6 @@ import { Service } from "typedi";
 import { getRepository } from "typeorm";
 import { Product } from "../db/entities/Product";
 import { ProductList } from "../db/entities/ProductList";
-import { ProductObjectType } from "./../product/dto/ProductObjectType";
 import { CreateProductListArgs } from "./dto/CreateProductListArgs";
 
 @Service()
@@ -21,10 +20,10 @@ export class ProductListService {
     return productList;
   }
 
-  async create(
-    bbb: ProductObjectType,
-    { name, products }: CreateProductListArgs
-  ): Promise<ProductList> {
+  async create({
+    name,
+    products,
+  }: CreateProductListArgs): Promise<ProductList> {
     const product1 = new Product({ name: "cos", price: 1.2 });
     await getRepository(Product).save(product1);
     const product2 = new Product({ name: "cos1", price: 1.2 });

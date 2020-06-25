@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import { Product } from "../../db/entities/Product";
 import { IProductListModel } from "./../../models/ProductListModel";
+import { ProductObjectType } from "./../../product/dto/ProductObjectType";
 
 @ObjectType("ProductList")
 export class ProductListObjectType implements IProductListModel {
@@ -10,7 +11,7 @@ export class ProductListObjectType implements IProductListModel {
   @Field()
   name!: string;
 
-  @Field((type) => [Product])
+  @Field((type) => [ProductObjectType])
   products!: Product[];
 
   /*

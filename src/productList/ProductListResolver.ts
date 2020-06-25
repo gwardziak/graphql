@@ -1,11 +1,21 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Args,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from "type-graphql";
+import { getRepository } from "typeorm";
+import { Product } from "../db/entities/Product";
 import { ProductList } from "../db/entities/ProductList";
 import { ProductObjectType } from "./../product/dto/ProductObjectType";
 import { CreateProductListArgs } from "./dto/CreateProductListArgs";
 import { ProductListObjectType } from "./dto/ProductListObjectType";
 import { ProductListService } from "./ProductListService";
 
-@Resolver()
+@Resolver((of) => ProductListObjectType)
 export class ProductListResolver {
   private constructor(
     private readonly productListService: ProductListService
@@ -23,11 +33,22 @@ export class ProductListResolver {
 
   @Mutation(() => ProductListObjectType)
   async createProductList(
-    @Arg("data") product: ProductObjectType,
+    @Args()
     createArgs: CreateProductListArgs
   ): Promise<ProductList> {
-    console.log(product);
     return await this.productListService.create(createArgs);
+  }
+
+  @FieldResolver()
+  async products(
+    @Root() { id: listId }: ProductListObjectType
+  ): Promise<ProductObjectType[]> {
+    const products = await getRepository(Product).find({
+      relations: ["list"],
+      where: { id: listId },
+    });
+
+    return products;
   }
 
   /*
