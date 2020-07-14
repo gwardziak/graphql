@@ -8,6 +8,7 @@ import Container from "typedi";
 import { createConnection } from "typeorm";
 import { ProductResolver } from "./product/ProductResolver";
 import { ProductListResolver } from "./productList/ProductListResolver";
+import { ProductListItemResolver } from "./productListItem/product/ProductListItemResolver";
 
 useContainer(Container);
 
@@ -15,7 +16,7 @@ const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [ProductResolver, ProductListResolver],
+    resolvers: [ProductResolver, ProductListResolver, ProductListItemResolver],
     //validation - true when validating anything
     validate: false,
   });

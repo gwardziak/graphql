@@ -1,17 +1,21 @@
 import { Service } from "typedi";
 import { getRepository } from "typeorm";
 import { Product } from "../db/entities/Product";
-import { CreateProductArgs } from "./dto/CreateProductArgs";
-import { UpdateProductArgs } from "./dto/UpdateProductArgs";
+import {
+  IProductServiceCreateArgs,
+  IProductServiceUpdateArgs,
+} from "../models/Product";
 
 @Service()
 export class ProductService {
+  private productRepository = getRepository(Product);
+
   async getAll(): Promise<Product[]> {
-    return await getRepository(Product).find();
+    return await this.productRepository.find();
   }
 
   async getOne(id: number): Promise<Product | null> {
-    const product = await getRepository(Product).findOne({
+    const product = await this.productRepository.findOne({
       where: { id },
     });
 
@@ -20,26 +24,26 @@ export class ProductService {
     return product;
   }
 
-  async create(product: CreateProductArgs) {
+  async create(product: IProductServiceCreateArgs) {
     const newProduct = new Product(product);
-    return await getRepository(Product).save(newProduct);
+    return await this.productRepository.save(newProduct);
   }
 
-  async edit({ id, ...newValues }: UpdateProductArgs) {
-    const product = await getRepository(Product).findOne({ where: { id } });
+  async edit({ id, ...newValues }: Partial<IProductServiceUpdateArgs>) {
+    const product = await this.productRepository.findOne({ where: { id } });
 
     if (!product) throw new Error("Product not found!");
 
     Object.assign(product, newValues);
-    return await getRepository(Product).save(product);
+    return await this.productRepository.save(product);
   }
 
-  async delete(id: number) {
-    const product = await getRepository(Product).findOne({ where: { id } });
+  async delete(id: number): Promise<boolean> {
+    const product = await this.productRepository.findOne({ where: { id } });
 
-    if (!product) throw new Error("Product not found!");
+    if (!product) return false;
 
-    await getRepository(Product).delete(product);
+    await this.productRepository.delete(product);
 
     return true;
   }

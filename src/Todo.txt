@@ -1,0 +1,58 @@
+
+
+
+
+https://github.com/gwardziak/graphql/blob/master/src/product/ProductService.ts#L28
+
+
+
+to jest dziwne troche
+
+
+
+nie lepiej zrobic
+
+
+
+repo.update({id}, newValues) i potem zrobic finda?
+
+
+
+
+jak chcesz zrobic tak jak napisales
+
+
+
+czyli np admin robi liste produktow
+
+
+
+user robi sobie liste
+
+
+
+tak zrobilem i chyba wychodzi ze w dupie XD
+
+
+
+i dodaje do listy produkt
+
+
+
+to potrzebujesz 3 tabele
+
+
+
+ProductListItem
+
+
+
+ktora ma many to one do product list
+
+
+
+i one to one do product
+
+
+
++ storuje ilosc

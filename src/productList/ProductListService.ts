@@ -6,12 +6,14 @@ import { CreateProductListArgs } from "./dto/CreateProductListArgs";
 
 @Service()
 export class ProductListService {
+  private productRepository = getRepository(ProductList);
+
   async getAll(): Promise<ProductList[]> {
-    return await getRepository(ProductList).find();
+    return await this.productRepository.find();
   }
 
   async getOne(id: number): Promise<ProductList | null> {
-    const productList = await getRepository(ProductList).findOne({
+    const productList = await this.productRepository.findOne({
       where: { id },
     });
 
@@ -31,7 +33,7 @@ export class ProductListService {
 
     const list = new ProductList({ name, products: [product1, product2] });
 
-    return await getRepository(ProductList).save(list);
+    return await this.productRepository.save(list);
   }
   /*
   @Mutation(() => ProductList)
@@ -41,7 +43,7 @@ export class ProductListService {
   ): Promise<ProductList> {
     console.log(name);
     console.log(products);
-    await getRepository(ProductList).find();
+    await this.productRepository.find();
     return new ProductList({ name, products });
   }
 
@@ -50,7 +52,7 @@ export class ProductListService {
     console.log(productList);
     //const newProductList = new ProductList(productList);
     //console.log("Creating productList");
-    //return await getRepository(ProductList).save(newProductList);
+    //return await this.productRepository.save(newProductList);
   }
 
   @Mutation(() => Product)

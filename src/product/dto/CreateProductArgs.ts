@@ -1,8 +1,8 @@
 import { ArgsType, Field, Float } from "type-graphql";
-import { IProductModel } from "../../models/ProductModel";
+import { IProductObjectTypeCreateArgs } from "../../models/Product";
 
 @ArgsType()
-export class CreateProductArgs implements Omit<IProductModel, "id"> {
+export class CreateProductArgs implements IProductObjectTypeCreateArgs {
   @Field()
   public readonly name!: string;
 

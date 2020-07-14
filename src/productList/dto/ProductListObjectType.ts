@@ -19,9 +19,4 @@ export class ProductListObjectType implements IProductListModel {
   @Field((type) => [Product])
   products!: Product[];
 */
-  constructor(options: IProductListModel) {
-    if (options) {
-      Object.assign(this, options);
-    }
-  }
 }

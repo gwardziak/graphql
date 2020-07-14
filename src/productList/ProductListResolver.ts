@@ -45,7 +45,7 @@ export class ProductListResolver {
   ): Promise<ProductObjectType[]> {
     const products = await getRepository(Product).find({
       relations: ["list"],
-      where: { id: listId },
+      where: { listId },
     });
 
     return products;
