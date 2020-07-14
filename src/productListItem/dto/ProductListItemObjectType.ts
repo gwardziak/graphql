@@ -1,7 +1,7 @@
 import { Field, ID, InputType, Int, ObjectType } from "type-graphql";
-import { Product } from "../../../db/entities/Product";
-import { IProductListItemObjectType } from "../../../models/ProductListItem";
-import { ProductObjectType } from "../../../product/dto/ProductObjectType";
+import { Product } from "../../db/entities/Product";
+import { IProductListItemObjectType } from "../../models/ProductListItem";
+import { ProductObjectType } from "../../product/dto/ProductObjectType";
 
 @ObjectType("ProductListItem")
 @InputType()

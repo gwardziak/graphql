@@ -1,5 +1,5 @@
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
-import { ProductListItem } from "../../db/entities/ProductListItem";
+import { ProductListItem } from "../db/entities/ProductListItem";
 import { CreateProductListItemArgs } from "./dto/CreateProductListItemArgs";
 import { ProductListItemObjectType } from "./dto/ProductListItemObjectType";
 import { ProductListItemService } from "./ProductListItemService";

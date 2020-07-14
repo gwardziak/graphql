@@ -24,17 +24,20 @@ export class ProductService {
     return product;
   }
 
-  async create(product: IProductServiceCreateArgs) {
+  async create(product: IProductServiceCreateArgs): Promise<Product> {
     const newProduct = new Product(product);
     return await this.productRepository.save(newProduct);
   }
 
-  async edit({ id, ...newValues }: Partial<IProductServiceUpdateArgs>) {
+  async edit({
+    id,
+    ...values
+  }: Partial<IProductServiceUpdateArgs>): Promise<Product> {
     const product = await this.productRepository.findOne({ where: { id } });
 
     if (!product) throw new Error("Product not found!");
 
-    Object.assign(product, newValues);
+    Object.assign(product, values);
     return await this.productRepository.save(product);
   }
 

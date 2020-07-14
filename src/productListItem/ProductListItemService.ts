@@ -1,8 +1,8 @@
 import { Service } from "typedi";
 import { getRepository } from "typeorm";
-import { Product } from "../../db/entities/Product";
-import { ProductListItem } from "../../db/entities/ProductListItem";
-import { IProductListItemServiceCreateArgs } from "../../models/ProductListItem";
+import { Product } from "../db/entities/Product";
+import { ProductListItem } from "../db/entities/ProductListItem";
+import { IProductListItemServiceCreateArgs } from "../models/ProductListItem";
 
 @Service()
 export class ProductListItemService {
@@ -32,7 +32,10 @@ export class ProductListItemService {
 
     if (!product) throw new Error("Product not found!");
 
-    const productListItem = new ProductListItem({ quantity, product });
+    const productListItem = new ProductListItem({
+      quantity,
+      product,
+    });
 
     return await this.productListItemRepository.save(productListItem);
   }

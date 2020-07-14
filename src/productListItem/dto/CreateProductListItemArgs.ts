@@ -1,5 +1,5 @@
 import { ArgsType, Field } from "type-graphql";
-import { IProductListItemObjectTypeCreateArgs } from "../../../models/ProductListItem";
+import { IProductListItemObjectTypeCreateArgs } from "../../models/ProductListItem";
 
 @ArgsType()
 export class CreateProductListItemArgs

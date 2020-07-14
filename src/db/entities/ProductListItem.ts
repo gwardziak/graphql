@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IProductListItemEntity } from "../../models/ProductListItem";
 import { Product } from "./Product";
 
@@ -16,8 +10,7 @@ export class ProductListItem implements IProductListItemEntity {
   @Column()
   quantity!: number;
 
-  @OneToOne((type) => Product)
-  @JoinColumn()
+  @ManyToOne((type) => Product, (product) => product.listItems)
   product!: Product;
 
   constructor(options: IProductListItemEntity) {

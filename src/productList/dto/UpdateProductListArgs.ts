@@ -1,5 +1,5 @@
 import { ArgsType, Field, ID } from "type-graphql";
-import { IProductListModel } from "./../../models/ProductListModel";
+import { IProductListModel } from "../../models/ProductListModel";
 
 export type updateProductListArgs = Partial<IProductListModel>;
 

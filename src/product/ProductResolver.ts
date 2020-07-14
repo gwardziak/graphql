@@ -10,7 +10,7 @@ export class ProductResolver {
   private constructor(private readonly productService: ProductService) {}
 
   @Query(() => [ProductObjectType])
-  async products() {
+  async products(): Promise<Product[]> {
     return await this.productService.getAll();
   }
 
@@ -20,17 +20,17 @@ export class ProductResolver {
   }
 
   @Mutation(() => ProductObjectType)
-  async createProduct(@Args() createArgs: CreateProductArgs) {
+  async createProduct(@Args() createArgs: CreateProductArgs): Promise<Product> {
     return await this.productService.create(createArgs);
   }
 
   @Mutation(() => ProductObjectType)
-  async editProduct(@Args() updateArgs: UpdateProductArgs) {
+  async editProduct(@Args() updateArgs: UpdateProductArgs): Promise<Product> {
     return await this.productService.edit(updateArgs);
   }
 
   @Mutation(() => Boolean)
-  async deleteProduct(@Arg("id") id: number) {
+  async deleteProduct(@Arg("id") id: number): Promise<Boolean> {
     return await this.productService.delete(id);
   }
 }

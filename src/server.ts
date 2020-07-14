@@ -8,7 +8,7 @@ import Container from "typedi";
 import { createConnection } from "typeorm";
 import { ProductResolver } from "./product/ProductResolver";
 import { ProductListResolver } from "./productList/ProductListResolver";
-import { ProductListItemResolver } from "./productListItem/product/ProductListItemResolver";
+import { ProductListItemResolver } from "./productListItem/ProductListItemResolver";
 
 useContainer(Container);
 
