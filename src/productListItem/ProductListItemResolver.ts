@@ -4,7 +4,7 @@ import { CreateProductListItemArgs } from "./dto/CreateProductListItemArgs";
 import { ProductListItemObjectType } from "./dto/ProductListItemObjectType";
 import { ProductListItemService } from "./ProductListItemService";
 
-@Resolver((of) => ProductListItemObjectType)
+@Resolver()
 export class ProductListItemResolver {
   private constructor(
     private readonly productListItemService: ProductListItemService
@@ -34,32 +34,4 @@ export class ProductListItemResolver {
   async deleteProductListItem(@Arg("id") id: number): Promise<Boolean> {
     return await this.productListItemService.delete(id);
   }
-
-  /*
-  @FieldResolver()
-  async product(@Root() { id: productId, product }: ProductListItemObjectType) {
-    console.log(productId);
-    console.log(product);
-    const products = await getRepository(ProductListItem).find({
-      relations: ["product"],
-      where: { id: 2 },
-    });
-    console.log(products);
-    return products;
-  }
-*/
-  /*
-  //TODO
-  @FieldResolver()
-  async product(
-    @Root() { id: listId }: ProductListItemObjectType
-  ): Promise<ProductObjectType[]> {
-    const products = await getRepository(Product).find({
-      relations: ["product"],
-      //where: { id: listId },
-    });
-    console.log(products);
-    return products;
-  }
-  */
 }
