@@ -9,11 +9,14 @@ export class ProductListItemService {
   private productListItemRepository = getRepository(ProductListItem);
 
   async getAll(): Promise<ProductListItem[]> {
-    return await this.productListItemRepository.find();
+    return await this.productListItemRepository.find({
+      relations: ["product"],
+    });
   }
 
   async getOne(listItemId: number): Promise<ProductListItem | null> {
     const productListItem = await this.productListItemRepository.findOne({
+      relations: ["product"],
       where: { id: listItemId },
     });
 
@@ -38,5 +41,17 @@ export class ProductListItemService {
     });
 
     return await this.productListItemRepository.save(productListItem);
+  }
+
+  async delete(id: number): Promise<boolean> {
+    const productListItem = await this.productListItemRepository.findOne({
+      where: { id },
+    });
+
+    if (!productListItem) return false;
+
+    await this.productListItemRepository.delete(productListItem);
+
+    return true;
   }
 }

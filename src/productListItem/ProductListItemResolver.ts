@@ -29,16 +29,12 @@ export class ProductListItemResolver {
   ): Promise<ProductListItem> {
     return await this.productListItemService.create(createArgs);
   }
-  //worked
-  /*
-  @Mutation(() => ProductListItemObjectType)
-  async createProductListItem(
-    @Args()
-    createArgs: CreateProductListArgs
-  ): Promise<ProductListItem> {
-    return await this.productListItemService.create(createArgs);
+
+  @Mutation(() => Boolean)
+  async deleteProductListItem(@Arg("id") id: number): Promise<Boolean> {
+    return await this.productListItemService.delete(id);
   }
-*/
+
   /*
   @FieldResolver()
   async product(@Root() { id: productId, product }: ProductListItemObjectType) {
