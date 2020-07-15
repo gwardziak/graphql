@@ -10,7 +10,9 @@ export class ProductListItem implements IProductListItemEntity {
   @Column()
   quantity!: number;
 
-  @ManyToOne((type) => Product, (product) => product.listItems)
+  @ManyToOne((type) => Product, (product) => product.listItems, {
+    onDelete: "CASCADE",
+  })
   product!: Product;
 
   constructor(options: IProductListItemEntity) {

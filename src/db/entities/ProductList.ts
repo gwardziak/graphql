@@ -15,15 +15,6 @@ export class ProductList implements IProductListModel {
   @OneToMany((type) => Product, (products) => products.list)
   products!: Product[];
 
-  /*
-  @Column()
-  products!: Product[];
-*/
-  /*
-  @OneToMany((type) => Product, (products) => products.list)
-  @Field((type) => [Product])
-  products!: Product[];
-*/
   constructor(options: ProductListOptions) {
     if (options) {
       Object.assign(this, options);
