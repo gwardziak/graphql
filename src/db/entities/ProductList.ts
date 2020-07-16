@@ -1,21 +1,22 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { IProductListModel } from "../../models/ProductListModel";
-import { Product } from "./Product";
-
-type ProductListOptions = Omit<IProductListModel, "id">;
+import { IProductListEntity } from "./../../models/ProductList";
+import { ProductListItem } from "./ProductListItem";
 
 @Entity()
-export class ProductList implements IProductListModel {
+export class ProductList implements IProductListEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
   name!: string;
 
-  @OneToMany((type) => Product, (products) => products.list)
-  products!: Product[];
+  @OneToMany(
+    (type) => ProductListItem,
+    (productListItem) => productListItem.productList
+  )
+  items!: ProductListItem[];
 
-  constructor(options: ProductListOptions) {
+  constructor(options: IProductListEntity) {
     if (options) {
       Object.assign(this, options);
     }

@@ -1,8 +1,6 @@
 import { Service } from "typedi";
 import { getRepository } from "typeorm";
-import { Product } from "../db/entities/Product";
 import { ProductList } from "../db/entities/ProductList";
-import { CreateProductListArgs } from "./dto/CreateProductListArgs";
 
 @Service()
 export class ProductListService {
@@ -21,7 +19,7 @@ export class ProductListService {
 
     return productList;
   }
-
+  /*
   async create({
     name,
     products,
@@ -35,6 +33,7 @@ export class ProductListService {
 
     return await this.productRepository.save(list);
   }
+  */
   /*
   @Mutation(() => ProductList)
   async createProductList(

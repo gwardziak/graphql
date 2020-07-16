@@ -1,22 +1,15 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Product } from "../../db/entities/Product";
-import { IProductListModel } from "../../models/ProductListModel";
-import { ProductObjectType } from "./../../product/dto/ProductObjectType";
+import { IProductListObjectType } from "../../models/ProductList";
+import { ProductListItem } from "./../../db/entities/ProductListItem";
 
 @ObjectType("ProductList")
-export class ProductListObjectType implements IProductListModel {
+export class ProductListObjectType implements IProductListObjectType {
   @Field((type) => ID)
   id!: number;
 
   @Field()
   name!: string;
 
-  @Field((type) => [ProductObjectType])
-  products!: Product[];
-
-  /*
-  @OneToMany((type) => Product, (products) => products.list)
-  @Field((type) => [Product])
-  products!: Product[];
-*/
+  @Field((type) => [ProductListObjectType])
+  items!: ProductListItem[];
 }
